@@ -20,11 +20,11 @@ class Cit:
         """
         self.data = input_data
         self.t_value = t_value
-        "CombinationMatrix creation"
+        # CombinationMatrix creation
         self.combination_matrix = CombinationMatrix(input_data, t_value)
-        "Creation of solver and simplification of constraints"
+        # Creation of solver and simplification of constraints
         self.solver = Solver(input_data, constraints)
-        "Combinations which do not match to the constraints are disabled"
+        # Combinations which do not match to the constraints are disabled
         self.solver.clean_hash_table(self.combination_matrix, t_value)
         self.final_matrix = []
         pass
@@ -118,7 +118,7 @@ class Cit:
             possible_parameters = list(self.combination_matrix.uncovered_rows)
             row = [-1] * len(self.data)
             while len(possible_parameters) != 0:
-                "finding uncovered combination"
+                # finding uncovered combination
                 combination_parameters_index = random.randint(0, len(possible_parameters) - 1)
                 combination_parameters = possible_parameters[combination_parameters_index]
                 del possible_parameters[combination_parameters_index]
@@ -127,7 +127,7 @@ class Cit:
                 combination_index = random.randint(0, len(possible_combinations) - 1)
                 combination = possible_combinations[combination_index]
                 is_parameter_used = False
-                "Are parameters already used in row?"
+                # Are parameters already used in row?
                 for i in combination_parameters:
                     if row[i] != -1:
                         is_parameter_used = True
@@ -135,12 +135,12 @@ class Cit:
                 if is_parameter_used:
                     continue
                 row_copy = row.copy()
-                "Is combination matches the constraints?"
+                # Is combination matches the constraints?
                 for index, parameter in enumerate(combination_parameters):
                     row_copy[parameter] = combination[index]
                 if self.combination_matrix.is_valid_solution(row_copy):
                     row = row_copy
-            "Filling in of free spaces inside the row"
+            # Filling in of free spaces inside the row
             for index, r in enumerate(row):
                 if r == -1:
                     is_valid = False
@@ -348,12 +348,12 @@ def main():
     # for i in range(len(input_data)):
     #     input_data[i] = int(input_data[i])
 
-    "Reading data from casa_tables i is the index of datafile"
+    # Reading data from casa_tables i is the index of datafile
     t_value = 2
     i = 23
     input_data, constraints = data_converter(str(i))
 
-    "Computing"
+    # Computing
     program = Cit(input_data, t_value, constraints)
     start_time = time.process_time()
     final_list = program.compute()
