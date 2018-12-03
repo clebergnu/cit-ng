@@ -1,4 +1,5 @@
 class Pair:
+
     def __init__(self, name, value):
         self.name = name
         self.value = value
@@ -38,7 +39,7 @@ class Parameter:
             else:
                 array.append(pair)
         if len(self.constrained_values) == self.value:
-            self.is_full = True;
+            self.is_full = True
         if len(array) != 0:
             self.constraints[value].append(array)
 

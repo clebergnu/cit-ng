@@ -132,7 +132,8 @@ class Cit:
                     if row[i] != -1:
                         is_parameter_used = True
                         break
-                if is_parameter_used: continue
+                if is_parameter_used:
+                    continue
                 row_copy = row.copy()
                 "Is combination matches the constraints?"
                 for index, parameter in enumerate(combination_parameters):
@@ -367,4 +368,5 @@ def main():
     print("--- %s seconds ---" % (time.process_time() - start_time))
 
 
-if __name__ == "__main__": main()
+if __name__ == "__main__":
+    main()
