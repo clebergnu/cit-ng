@@ -1,0 +1,19 @@
+language: python
+
+matrix:
+  allow_failures:
+    - python: "nightly"
+
+python:
+    - "2.7"
+    - "3.4"
+    - "3.5"
+    - "3.6"
+    - "nightly"
+
+install:
+    - pip install -r requirements-selftests.txt
+
+script:
+    - inspekt indent
+    - inspekt style --exclude='.git' --disable='E501,E265,W601,E402,E722'
