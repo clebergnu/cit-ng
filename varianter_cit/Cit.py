@@ -292,9 +292,9 @@ def print_final_list(final_list):
 
 
 def print_progress(interaction):
-    max = round(ITERATIONS_SIZE / 100)
+    maximum = round(ITERATIONS_SIZE / 100)
     perc = round(interaction / 100)
-    message = "Computing[" + "*" * (perc) + " " * (max - perc) + "]" + "."
+    message = "Computing[" + "*" * (perc) + " " * (maximum - perc) + "]" + "."
     sys.stdout.write('\r' + message)
 
 
