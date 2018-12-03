@@ -82,7 +82,7 @@ class Cit:
         """
         while self.combination_matrix.total_uncovered != 0:
             print_progress(counter)
-            solution, row_index, parameters = self.use_random_algorithm(matrix)
+            solution, row_index, _ = self.use_random_algorithm(matrix)
             self.combination_matrix.uncover_solution_row(matrix[row_index])
             self.combination_matrix.cover_solution_row(solution)
             matrix[row_index] = solution

@@ -123,7 +123,7 @@ class CombinationMatrix:
         """
         self.total_covered_more_than_ones = 0
         self.total_uncovered = 0
-        for key, value in self.hash_table.items():
+        for _, value in self.hash_table.items():
             value.completely_uncover()
             self.total_uncovered += value.uncovered
 
