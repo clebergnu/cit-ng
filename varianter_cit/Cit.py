@@ -27,7 +27,6 @@ class Cit:
         # Combinations which do not match to the constraints are disabled
         self.solver.clean_hash_table(self.combination_matrix, t_value)
         self.final_matrix = []
-        pass
 
     def final_matrix_init(self):
         """

@@ -27,7 +27,6 @@ class Solver:
             self.read_constraints()
             self.compute_constraints()
             self.simplify_constraints()
-        pass
 
     def read_constraints(self):
         # creates new parameters with their names
