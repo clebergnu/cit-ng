@@ -20,7 +20,7 @@ class CombinationMatrix:
         self.uncovered_rows = {}
         self.total_uncovered = 0
         self.total_covered_more_than_ones = 0
-        "Creation of rows"
+        # Creation of rows
         for c in itertools.combinations(range(len(input_data)), t_value):
             row = Row(input_data, t_value, c)
             self.total_uncovered += row.uncovered
@@ -35,12 +35,12 @@ class CombinationMatrix:
         """
         for key, value in self.hash_table.items():
             val = []
-            "Getting combination from solution"
+            # Getting combination from solution
             for i in key:
                 val.append(row[i])
 
             uncovered_difference, covered_more_than_ones_difference = value.cover_cell(val)
-            "Deleting covered row from uncovered rows"
+            # Deleting covered row from uncovered rows
             if value.uncovered == 0:
                 self.uncovered_rows.pop(key, None)
             self.total_uncovered += uncovered_difference
@@ -59,12 +59,12 @@ class CombinationMatrix:
             for parameter in parameters:
                 if parameter in key:
                     val = []
-                    "Getting combination from solution"
+                    # Getting combination from solution
                     for i in key:
                         val.append(row[i])
 
                     uncovered_difference, covered_more_than_ones_difference = value.cover_cell(val)
-                    "Deleting covered row from uncovered rows"
+                    # Deleting covered row from uncovered rows
                     if value.uncovered == 0:
                         self.uncovered_rows.pop(key, None)
                     self.total_uncovered += uncovered_difference
@@ -80,12 +80,12 @@ class CombinationMatrix:
         """
         for key, value in self.hash_table.items():
             val = []
-            "Getting combination from solution"
+            # Getting combination from solution
             for i in key:
                 val.append(row[i])
 
             uncovered_difference, covered_more_than_ones_difference = value.uncover_cell(val)
-            "Adding uncovered row to uncovered rows"
+            # Adding uncovered row to uncovered rows
             if value.uncovered != 0:
                 self.uncovered_rows[key] = key
             self.total_uncovered += uncovered_difference
@@ -104,12 +104,12 @@ class CombinationMatrix:
             for parameter in parameters:
                 if parameter in key:
                     val = []
-                    "Getting combination from solution"
+                    # Getting combination from solution
                     for i in key:
                         val.append(row[i])
 
                     uncovered_difference, covered_more_than_ones_difference = value.uncover_cell(val)
-                    "Adding uncovered row to uncovered rows"
+                    # Adding uncovered row to uncovered rows
                     if value.uncovered != 0:
                         self.uncovered_rows[key] = key
                     self.total_uncovered += uncovered_difference
@@ -123,7 +123,7 @@ class CombinationMatrix:
         """
         self.total_covered_more_than_ones = 0
         self.total_uncovered = 0
-        for key, value in self.hash_table.items():
+        for _, value in self.hash_table.items():
             value.completely_uncover()
             self.total_uncovered += value.uncovered
 

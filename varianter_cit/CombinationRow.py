@@ -106,5 +106,3 @@ class CombinationRow:
             if value == 0:
                 combinations.append(key)
         return combinations
-
-
