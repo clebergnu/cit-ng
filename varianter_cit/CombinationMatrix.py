@@ -1,6 +1,6 @@
 import itertools
 
-from varianter_cit.CombinationRow import CombinationRow as Row
+from .CombinationRow import CombinationRow as Row
 
 
 class CombinationMatrix:

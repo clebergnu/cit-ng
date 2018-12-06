@@ -2,8 +2,8 @@ import random
 import time
 import sys
 
-from varianter_cit.Solver import Solver
-from varianter_cit.CombinationMatrix import CombinationMatrix
+from .Solver import Solver
+from .CombinationMatrix import CombinationMatrix
 
 ITERATIONS_SIZE = 600
 
