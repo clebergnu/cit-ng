@@ -1,9 +1,11 @@
+from __future__ import print_function
+
 import random
 import time
 import sys
 
-from varianter_cit.Solver import Solver
-from varianter_cit.CombinationMatrix import CombinationMatrix
+from .Solver import Solver
+from .CombinationMatrix import CombinationMatrix
 
 ITERATIONS_SIZE = 600
 
@@ -282,7 +284,7 @@ class Cit:
 
 def print_final_list(final_list):
     for i in range(len(final_list)):
-        print("T%s==>>>> " % i, end='')
+        print("T%s==>>>> ", i, end='')
         for j in range(len(final_list[i])):
             print(final_list[i][j], end='')
             if j != len(final_list[i]) - 1:

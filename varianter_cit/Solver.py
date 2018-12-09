@@ -1,7 +1,7 @@
 import itertools
 
-from varianter_cit.Parameter import Parameter
-from varianter_cit.Parameter import Pair
+from .Parameter import Parameter
+from .Parameter import Pair
 
 
 class Solver:
