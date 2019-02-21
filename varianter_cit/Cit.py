@@ -269,16 +269,18 @@ class Cit:
                     distance += 1
         return distance
 
-    def create_random_row_without_constraints(self):
-        row = []
-        for j in self.data:
-            row.append(random.randint(0, j - 1))
-        return row
-
     def create_random_row_with_constraints(self):
-        row = self.create_random_row_without_constraints()
-        while not self.combination_matrix.is_valid_solution(row):
-            row = self.create_random_row_without_constraints()
+        row = []
+        data_matrix = []
+        for parameter in self.data:
+            data_matrix.append(list(range(0, parameter)))
+
+        # delete the forbidden values ​by constraints
+        self.solver.clean_data_matrix(data_matrix)
+        for parameter, possible_values in enumerate(data_matrix):
+            value_choice = random.choice(possible_values)
+            self.solver.clean_data_matrix(data_matrix, {"name": parameter, "value": value_choice})
+            row.append(value_choice)
         return row
 
 
