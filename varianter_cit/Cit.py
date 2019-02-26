@@ -53,25 +53,36 @@ class Cit:
         :return: The best solution
         """
         self.final_matrix = self.final_matrix_init()
-        is_better_solution = True
         matrix = [x[:] for x in self.final_matrix]
         iterations = ITERATIONS_SIZE
-        while is_better_solution:
-            while self.combination_matrix.total_uncovered == 0:
+        step_size = 1
+        deleted_rows = []
+        while step_size != 0:
+            for i in range(step_size):
                 delete_row = matrix.pop(random.randint(0, len(matrix) - 1))
                 self.combination_matrix.uncover_solution_row(delete_row)
-            print("I'm trying " + str(iterations) + " iterations")
+                deleted_rows.append(delete_row)
+            print("I'm trying soulution with size " + str(len(matrix)) + " and " + str(iterations) + " iterations")
             matrix, is_better_solution = self.find_better_solution(iterations, matrix)
             if is_better_solution:
                 self.final_matrix = matrix[:]
+                deleted_rows = []
+                step_size *= 2
                 print("-----solution with size " + str(len(matrix)) + " was found-----")
                 print()
-                print("-----I'm trying found solution with size " + str(len(matrix) - 1) + "-----")
                 iterations = ITERATIONS_SIZE
             else:
                 print("-----solution with size " + str(len(matrix)) + " was not found-----")
                 print()
-                print("-----The best solution is-----")
+                for i in range(step_size):
+                    self.combination_matrix.cover_solution_row(deleted_rows[i])
+                    matrix.append(deleted_rows[i])
+                if step_size > 1:
+                    step_size = 1
+                else:
+                    step_size = 0
+
+        print("-----The best solution is-----")
         return self.final_matrix
 
     def find_better_solution(self, counter, matrix):
