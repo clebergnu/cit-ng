@@ -19,14 +19,14 @@ class Pair:
 
 class Parameter:
 
-    def __init__(self, name, value):
+    def __init__(self, name, parameter_id, values):
         self.is_full = False
         self.name = name
-        # number of values
-        self.value = value
+        self.id = parameter_id
+        self.values = values
         self.constrained_values = set()
         self.constraints = {}
-        for i in range(value):
+        for i in range(len(values)):
             self.constraints[i] = []
 
     def add_constraint(self, constraint):
@@ -38,7 +38,7 @@ class Parameter:
                 value = pair.value
             else:
                 array.append(pair)
-        if len(self.constrained_values) == self.value:
+        if len(self.constrained_values) == len(self.values):
             self.is_full = True
         if len(array) != 0:
             self.constraints[value].append(array)
@@ -48,3 +48,9 @@ class Parameter:
         for key in self.constraints:
             array.append(self.constraints[key])
         return array
+
+    def get_value_index(self, value):
+        return self.values.index(value)
+
+    def get_size(self):
+        return len(self.values)
