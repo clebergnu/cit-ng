@@ -1,7 +1,6 @@
 import itertools
 
 from .Parameter import Parameter
-from .Parameter import Pair
 
 
 class Solver:
@@ -15,7 +14,6 @@ class Solver:
         self.constraints = constraints
         self.parameters = []
 
-        self.constraints = self.create_constraint_array()
         self.simplify_constraints()
         constraint_size = len(self.constraints)
         self.read_constraints()
@@ -30,8 +28,8 @@ class Solver:
 
     def read_constraints(self):
         # creates new parameters with their names
-        for p in range(len(self.data)):
-            self.parameters.append(Parameter(p, self.data[p]))
+        for i, values_size in enumerate(self.data):
+            self.parameters.append(Parameter(i, i, range(values_size)))
         for constraint in self.constraints:
             for pair in constraint:
                 self.parameters[pair.name].add_constraint(constraint)
@@ -85,18 +83,6 @@ class Solver:
                             items_to_remove.add(copy[j])
         for item in items_to_remove:
             self.constraints.remove(item)
-
-    def create_constraint_array(self):
-        constraint_array = set()
-        for i in self.constraints:
-            constraint = i.split(self.OR)
-            array = []
-            for j in constraint:
-                constraint_value = j.split()
-                array.append(Pair(int(constraint_value[self.PARAMETER]), int(constraint_value[self.VALUE])))
-            array.sort(key=lambda x: int(x.name))
-            constraint_array.add(tuple(array))
-        return constraint_array
 
     def clean_hash_table(self, combination_matrix, t_value):
         for constraint in self.constraints:
