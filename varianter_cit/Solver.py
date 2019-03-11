@@ -98,7 +98,7 @@ class Solver:
             constraint_array.add(tuple(array))
         return constraint_array
 
-    def clean_hash_table(self, hash_table, t_value):
+    def clean_hash_table(self, combination_matrix, t_value):
         for constraint in self.constraints:
             if len(constraint) > t_value:
                 continue
@@ -117,4 +117,20 @@ class Solver:
                         else:
                             value_array.append(list(range(0, self.data[value])))
                     for key in itertools.product(*value_array):
-                        hash_table.del_cell(c, key)
+                        combination_matrix.del_cell(c, key)
+
+    def clean_data_matrix(self, data_matrix, parameter=None):
+        if parameter is None:
+            for constraint in self.constraints:
+                if len(constraint) == 1:
+                    constraint = constraint[0]
+                    data_matrix[constraint.name].remove(constraint.value)
+        else:
+            parameter_constraint = self.parameters[parameter["name"]].constraints[parameter["value"]]
+            for constraint in parameter_constraint:
+                constraint = constraint[0]
+                try:
+                    data_matrix[constraint.name].remove(constraint.value)
+                except ValueError:
+                    # this value was already deleted
+                    pass
