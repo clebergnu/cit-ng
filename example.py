@@ -66,7 +66,7 @@ def main():
     input_data, constraints = data_converter(str(i))
 
     # Computing
-    program = Cit.Cit(input_data, t_value, constraints)
+    program = Cit.Cit(input_data, t_value, constraints, True)
     # start_time = time.process_time()
     final_list = program.compute()
 

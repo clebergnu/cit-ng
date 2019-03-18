@@ -11,12 +11,13 @@ ITERATIONS_SIZE = 600
 
 class Cit:
 
-    def __init__(self, input_data, t_value, constraints):
+    def __init__(self, input_data, t_value, constraints, debug=False):
         """
         Creation of CombinationMatrix from user input
         :param input_data: parameters from user
         :param t_value: size of one combination
         :param constraints: constraints of combinations
+        :param debug: if debug statements should be produced
         """
         self.data = input_data
         self.t_value = t_value
@@ -27,6 +28,7 @@ class Cit:
         # Combinations which do not match to the constraints are disabled
         self.solver.clean_hash_table(self.combination_matrix, t_value)
         self.final_matrix = []
+        self.debug = debug
 
     def final_matrix_init(self):
         """
@@ -61,18 +63,21 @@ class Cit:
                 delete_row = matrix.pop(random.randint(0, len(matrix) - 1))
                 self.combination_matrix.uncover_solution_row(delete_row)
                 deleted_rows.append(delete_row)
-            print("I'm trying soulution with size " + str(len(matrix)) + " and " + str(iterations) + " iterations")
+            if self.debug:
+                print("I'm trying soulution with size " + str(len(matrix)) + " and " + str(iterations) + " iterations")
             matrix, is_better_solution = self.find_better_solution(iterations, matrix)
             if is_better_solution:
                 self.final_matrix = matrix[:]
                 deleted_rows = []
                 step_size *= 2
-                print("-----solution with size " + str(len(matrix)) + " was found-----")
-                print()
+                if self.debug:
+                    print("-----solution with size " + str(len(matrix)) + " was found-----")
+                    print()
                 iterations = ITERATIONS_SIZE
             else:
-                print("-----solution with size " + str(len(matrix)) + " was not found-----")
-                print()
+                if self.debug:
+                    print("-----solution with size " + str(len(matrix)) + " was not found-----")
+                    print()
                 for i in range(step_size):
                     self.combination_matrix.cover_solution_row(deleted_rows[i])
                     matrix.append(deleted_rows[i])
@@ -81,7 +86,8 @@ class Cit:
                 else:
                     step_size = 0
 
-        print("-----The best solution is-----")
+        if self.debug:
+            print("-----The best solution is-----")
         return self.final_matrix
 
     def find_better_solution(self, counter, matrix):
@@ -92,7 +98,8 @@ class Cit:
         :return: new matrix and is changes have been successful?
         """
         while self.combination_matrix.total_uncovered != 0:
-            print_progress(counter)
+            if self.debug:
+                print_progress(counter)
             solution, row_index, _ = self.use_random_algorithm(matrix)
             self.combination_matrix.uncover_solution_row(matrix[row_index])
             self.combination_matrix.cover_solution_row(solution)
